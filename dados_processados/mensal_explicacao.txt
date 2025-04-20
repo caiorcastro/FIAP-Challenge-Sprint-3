@@ -1,0 +1,11 @@
+Validação cruzada leave-one-out para prever NDVI mensal a partir do clima:
+- LinearRegression: modelo linear simples.
+- Ridge: regularização L2 para reduzir overfitting.
+- Lasso: regularização L1 para seleção de variáveis.
+- RandomForest: modelo não-linear, robusto a colinearidade.
+Métricas:
+          Modelo  R2_treino  R2_LOO_medio     RMSE
+LinearRegression   0.583663           NaN 0.044858
+           Ridge   0.583663           NaN 0.044858
+           Lasso   0.580390           NaN 0.045034
+    RandomForest   0.916480           NaN 0.020092

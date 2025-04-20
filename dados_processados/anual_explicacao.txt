@@ -1,0 +1,11 @@
+Validação cruzada leave-one-out com 4 algoritmos:
+- LinearRegression: modelo linear simples.
+- Ridge: regularização L2 para reduzir overfitting.
+- Lasso: regularização L1 para seleção de variáveis.
+- RandomForest: modelo não-linear, robusto a colinearidade.
+Métricas:
+          Modelo  R2_treino  R2_LOO_medio         RMSE
+LinearRegression   1.000000           NaN 1.143476e-14
+           Ridge   0.727640           NaN 5.682303e-01
+           Lasso   0.771929           NaN 5.199810e-01
+    RandomForest   0.837260           NaN 4.392371e-01

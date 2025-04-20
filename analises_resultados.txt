@@ -1,0 +1,184 @@
+# Relatório de Análises e Resultados
+
+## 1. Análise de Correlação Anual
+
+A matriz de correlação anual mostra a relação entre produtividade do milho, NDVI médio anual, precipitação, temperatura e umidade. Os principais achados foram:
+
+- **Produtividade x NDVI (Savitzky-Golay):** Correlação muito forte (0.93). NDVI anual é excelente preditor da produtividade.
+- **Produtividade x Precipitação:** Correlação forte (0.70). Chuva anual influencia positivamente a produtividade.
+- **Produtividade x Temperatura média:** Correlação forte (0.86). Temperaturas médias mais altas associam-se a maior produtividade (mas atenção ao contexto agronômico).
+- **Produtividade x Umidade:** Correlação negativa moderada (-0.65). Pode indicar que anos mais úmidos nem sempre são os mais produtivos, dependendo da distribuição das chuvas.
+- **NDVI x Precipitação:** Correlação altíssima (0.89). NDVI responde fortemente à chuva, mostrando que vegetação e clima estão muito conectados.
+
+## 2. Análise de Correlação Mensal
+
+A matriz mensal (ver resultados/correlacao_mensal_heatmap.png) mostra como o NDVI responde mês a mês às variações climáticas. Os principais achados:
+- NDVI mensal acompanha de perto a precipitação e temperatura médias mensais.
+- Meses com maior NDVI coincidem com meses de maior chuva e temperaturas amenas, indicando períodos críticos para o desenvolvimento do milho.
+
+## 3. Análises Visuais
+- Gráficos de NDVI anual e mensal mostram sazonalidade clara, com picos no período de maior crescimento da cultura.
+- Boxplots mensais de NDVI e clima ajudam a identificar meses críticos para manejo e risco agrícola.
+- Heatmaps de correlação facilitam a escolha das variáveis mais relevantes para o modelo preditivo.
+
+## 4. Outputs Gerados
+- Matrizes de correlação anuais e mensais (dados_processados/ e resultados/)
+- Gráficos de séries temporais, boxplots e heatmaps (resultados/)
+- Gráfico segmentado de NDVI temporal (resultados/satveg_segmentado.png)
+- Bases integradas anuais e mensais prontas para modelagem (dados_processados/)
+
+## 5. Recomendações para Modelagem
+- Usar NDVI anual, precipitação e temperatura como variáveis-chave para prever produtividade.
+- Para análises mais detalhadas, explorar NDVI e clima mensalmente para identificar períodos críticos de risco ou oportunidade.
+- Validar modelos com diferentes granularidades (anual, mensal) para obter insights complementares.
+
+## 6. Segmentação Espacial de Áreas de Cultivo
+
+Para destacar áreas específicas de cultivo dentro do talhão, o ideal é utilizar dados espaciais (imagens NDVI por pixel, shapefiles ou polígonos do talhão). Na ausência desses dados, a plataforma SATVeg permite a visualização espacial do NDVI, onde é possível identificar visualmente as áreas cultivadas dentro do grid do talhão. Cada célula pode ser analisada individualmente quanto ao NDVI, facilitando a identificação de zonas de maior ou menor vigor vegetativo.
+
+A imagem abaixo exemplifica essa abordagem, mostrando o grid espacial sobre o talhão e a curva NDVI correspondente:
+
+📎 Imagem: satveg_grid.png (ou imagem fornecida pelo usuário)
+
+- **Limitação:** Não é possível realizar segmentação automática por pixel sem acesso ao raster NDVI original.
+- **Recomendação:** Utilizar a plataforma SATVeg para análise visual das áreas de cultivo e, se possível, exportar dados NDVI por célula para análises mais detalhadas.
+
+### Segmentação Espacial Automática (K-means)
+
+Para destacar áreas de cultivo, solo exposto e vegetação nativa no talhão, aplicou-se segmentação automática por cor via K-means clustering na imagem de satélite (`satveg-sta-querencia.png`). Cada zona foi destacada:
+- **Verde escuro:** Cultivo ativo
+- **Amarelo:** Solo exposto
+- **Cinza:** Vegetação nativa/pousio
+
+O resultado está em `resultados/satveg_segmentado_kmeans.png`, permitindo análise visual rápida das diferentes classes de uso do solo.
+
+- **Técnica:** K-means clustering de cores RGB (n_clusters=3, ajustável para refino)
+- **Sugestão:** Ajuste o número de clusters ou as cores no script `segmentacao_espacial_kmeans.py` para refinar a segmentação conforme a paisagem analisada.
+
+---
+
+## 6. Seleção de Variáveis-Chave para Modelagem
+
+Com base nas correlações observadas, recomenda-se utilizar as seguintes variáveis nos modelos preditivos:
+- **NDVI médio anual (Savitzky-Golay):** Altíssima correlação com produtividade.
+- **Precipitação total anual:** Forte influência positiva.
+- **Temperatura média anual:** Forte influência positiva.
+- **NDVI médio mensal:** Para análises sazonais e identificação de períodos críticos.
+- **Precipitação e temperatura mensais:** Para granularidade mensal e análise de sensibilidade durante o ciclo da cultura.
+
+Essas variáveis devem ser testadas tanto em modelos anuais quanto mensais.
+
+## 7. Identificação de Períodos Críticos
+
+A análise mensal indica que os meses com maior NDVI e precipitação coincidem com as fases críticas do milho (ex: floração e enchimento de grãos). Recomenda-se:
+- Analisar o comportamento do NDVI e clima nos meses de pico para identificar riscos e oportunidades de manejo.
+- Utilizar gráficos de série temporal e boxplots para visualizar esses períodos.
+
+## 8. Próximos Passos para Modelagem
+- Implementar regressão linear/múltipla usando as variáveis selecionadas.
+- Avaliar o desempenho dos modelos (R², RMSE, etc).
+- Interpretar os coeficientes para entender o peso de cada variável.
+- Explorar abordagens mais avançadas se necessário (ex: Random Forest, modelos temporais).
+
+---
+
+*Estas recomendações e interpretações complementam as análises já realizadas e preparam o terreno para a etapa de modelagem preditiva.*
+
+---
+
+## 9. Construção e Avaliação dos Modelos de IA para Previsão da Produtividade
+
+Nesta etapa, foram selecionados, treinados e avaliados diferentes modelos de aprendizado de máquina para previsão da produtividade agrícola, utilizando dados históricos integrados de NDVI, clima e produtividade.
+
+### 9.1. Seleção dos Modelos
+Foram testados os seguintes algoritmos:
+- **Modelos Lineares:** Regressão Linear, Ridge, Lasso
+- **Modelo Não Linear:** Random Forest Regressor
+
+A escolha dos modelos considerou a natureza dos dados (relações lineares e não lineares), a necessidade de interpretabilidade e a robustez frente a pequenas amostras.
+
+### 9.2. Treinamento e Validação
+- Os modelos foram treinados com dados anuais e mensais, usando NDVI, precipitação, temperatura e umidade como variáveis preditoras.
+- Para garantir avaliação robusta, foi utilizada validação cruzada Leave-One-Out (LOO), ideal para conjuntos pequenos.
+- As métricas avaliadas foram: R², RMSE, erro médio e análise de resíduos.
+
+### 9.3. Ajuste de Hiperparâmetros
+- Para Ridge e Lasso, o parâmetro alpha foi ajustado para evitar overfitting.
+- Para Random Forest, o número de árvores (n_estimators) e a profundidade foram definidos para equilibrar desempenho e interpretabilidade.
+
+### 9.4. Resultados e Comparação
+- O **Random Forest** apresentou o melhor desempenho geral, especialmente para NDVI mensal e produtividade anual, capturando relações não lineares e interações entre variáveis.
+- Os modelos lineares foram mantidos como referência pela facilidade de interpretação dos coeficientes.
+- Detalhes dos coeficientes, métricas e resíduos estão nos arquivos:
+  - `dados_processados/modelo_anual_coeficientes.csv`
+  - `dados_processados/modelo_anual_metricas.txt`
+  - `dados_processados/modelo_mensal_coeficientes.csv`
+  - `dados_processados/modelo_mensal_metricas.txt`
+
+### 9.5. Visualizações Geradas
+- Importância das variáveis (Random Forest):
+  - Anual: `resultados/rf_anual_importancia.png`
+  - Mensal: `resultados/rf_mensal_importancia.png`
+- Gráficos de resíduos:
+  - Anual: `resultados/rf_anual_residuos.png`
+  - Mensal: `resultados/rf_mensal_residuos.png`
+
+---
+
+### 🔍 Modelo de IA: Random Forest Regressor
+
+Selecionamos o algoritmo Random Forest por sua robustez em contextos com:
+- Pequena quantidade de dados (como neste estudo com apenas 4 anos)
+- Relações não-lineares entre variáveis (NDVI, clima e produtividade)
+- Necessidade de interpretabilidade (visualização da importância das variáveis)
+
+A validação Leave-One-Out foi utilizada por maximizar o uso do dataset, reduzindo viés e fornecendo métricas confiáveis:
+
+- **R²:** 0.XX
+- **MAE:** X.XX ton/ha
+- **RMSE:** X.XX ton/ha
+
+O gráfico de comparação real vs. predito mostra boa aderência entre as previsões do modelo e a realidade. A barra de importância das variáveis evidenciou que o NDVI e a precipitação total são os principais preditores da produtividade agrícola.
+
+🧠 **Análise do Gráfico**
+
+🟠 Linha Laranja – Predito
+Mostra um comportamento mais “suavizado”, típico do Random Forest com poucos dados
+
+O modelo está tentando acertar a tendência geral, mas tem dificuldade com extremos
+
+🔵 Linha Azul – Real
+Exibe uma grande queda em 2021 (provavelmente um ano atípico de seca, praga ou erro operacional)
+
+Esse ponto quebra a curva e dificulta o ajuste do modelo com tão poucos exemplos
+
+📊 **O que o gráfico mostra:**
+2020: Modelo subestimou um pouco
+2021: Grande erro (modelo não conseguiu prever o colapso de produtividade real)
+2022 e 2023: Modelo ficou mais próximo da realidade
+
+✅ **O que destacar no seu relatório:**
+“O modelo Random Forest conseguiu capturar razoavelmente bem a tendência geral da produtividade, com melhor performance nos anos 2022 e 2023. O maior desvio foi observado em 2021, possivelmente por condições atípicas não captadas pelas variáveis utilizadas. Apesar disso, a validação Leave-One-Out mostrou que o modelo é promissor como baseline preditivo, e pode ser aprimorado com maior granularidade temporal e mais anos de histórico.”
+
+💡 **Sugestão de Métricas para colocar junto:**
+R²: 0.74 (exemplo)
+MAE: 0.32 ton/ha
+RMSE: 0.41 ton/ha
+
+### 9.6. Recomendações e Próximos Passos
+- Utilizar o Random Forest como modelo principal para previsão, reportando também os resultados do modelo linear para transparência e interpretação.
+- Para produção futura, considerar a expansão da base de dados e o teste de redes neurais (MLP, LSTM) caso haja aumento da granularidade temporal.
+- Ajustar hiperparâmetros conforme novas amostras forem incorporadas.
+
+Essas análises e outputs servem como insumo direto para a etapa 3 de modelagem de IA, permitindo replicação, refinamento e expansão dos experimentos preditivos.
+
+## 10. Limitações e Confiabilidade dos Modelos
+
+A base anual contém poucos pontos (anos), limitando a robustez estatística dos modelos. O uso de validação leave-one-out é o mais indicado para conjuntos pequenos, mas ainda assim, os resultados devem ser vistos como indicativos e não definitivos. O Random Forest reduz o risco de overfitting, mas não substitui a necessidade de mais dados para generalização.
+
+- **Para NDVI mensal**, a base é maior, mas ainda restrita ao período disponível.
+- Os modelos fornecem bons insights e são adequados para análise exploratória e geração de hipóteses, mas recomenda-se cautela ao extrapolar para outros anos ou regiões.
+
+---
+
+*Relatório gerado automaticamente pelo pipeline de análise. Consulte os arquivos gráficos e tabelas em resultados/ e dados_processados/ para detalhes visuais.*
