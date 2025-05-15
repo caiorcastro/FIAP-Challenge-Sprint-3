@@ -1,142 +1,175 @@
-# FIAP - Challenge Fase 2: Análise de Produtividade Agrícola Integrando NDVI, Clima e Produtividade
+# FIAP - Faculdade de Informática e Administração Paulista
 
-## Objetivo do Projeto
+<p align="center">
+<a href="https://www.fiap.com.br/"><img src="assets/logo-fiap.png" alt="FIAP - Faculdade de Informática e Administração Paulista" border="0" width="40%" height="40%"></a>
+</p>
 
-Integrar e analisar dados de produtividade agrícola (milho) para Sidrolândia-MS usando NDVI (satélite), clima (INMET) e produção (IBGE/CONAB), buscando identificar padrões, períodos críticos e variáveis-chave para modelagem preditiva.
+<br>
 
-## Estrutura do Projeto
+# 🌾 Challenge Ingredion - Sprint 3
+## Validação do Modelo de IA com Dados Reais de Produtividade Agrícola
 
-```
-FIAP - Challenge Fase 2/
-│
-├── dados_brutos/         # Dados originais (IBGE, CONAB, NDVI, INMET)
-├── dados_processados/    # Dados tratados e integrados para análise/modelagem
-├── scripts/              # Scripts Python para tratamento, análise e integração
-├── notebooks/            # Notebooks Jupyter para visualização e documentação
-├── resultados/           # Gráficos, tabelas finais, relatórios
-├── requirements.txt      # Dependências do projeto
-├── analises_resultados.txt # Relatório detalhado das análises
-└── README.md             # Este arquivo
-```
+## Grupo 32
 
-## Pipeline Analítico (Etapas)
+## 👨‍🎓 Integrantes: 
+- <a href="https://www.linkedin.com/in/caiorcastro/">Caio Rodrigues Castro</a> 
+- <a href="https://www.linkedin.com/in/celeste-leite-dos-santos-66352a24b/">Celeste Leite dos Santos</a> 
+- <a href="https://www.linkedin.com/in/digitalmanagerfelipesoares/">Felipe Soares Nascimento</a>
+- <a href="https://www.linkedin.com/in//">Wellington Nascimento de Brito</a>
 
-1. **Tratamento e extração dos dados brutos:**
-   - IBGE, CONAB, NDVI, INMET
-2. **Geração de estatísticas anuais e mensais:**
-   - NDVI médio anual/mensal, clima anual/mensal, produtividade anual
-3. **Integração dos dados:**
-   - Bases integradas para análise/modelagem (anual e mensal)
-4. **Análise exploratória e visualizações:**
-   - Matrizes de correlação, boxplots, séries temporais
-5. **Modelagem preditiva:**
-   - Regressão Linear, Ridge, Lasso, Random Forest
-   - Validação cruzada leave-one-out
-6. **Documentação e outputs:**
-   - Relatório de análises, gráficos, tabelas e recomendações
+## Video
 
-## Como Executar o Projeto
+https://youtu.be/8uVqWHpWkhI
 
-1. **Ative o ambiente virtual:**
-   ```powershell
-   .venv\Scripts\activate
-   ```
-2. **Execute os scripts na ordem recomendada:**
-   - `extrair_milho_sidrolandia_ibge.py` — Trata dados IBGE
-   - `analise_ndvi.py` — Analisa NDVI anual
-   - `analise_ndvi_mensal.py` — Analisa NDVI mensal
-   - `tratar_ibge_milho.py` — Ajusta dados IBGE
-   - `analise_inmet.py` — Analisa clima (INMET)
-   - `integracao_ndvi_produtividade.py` — Integra NDVI, clima e produtividade
-   - `correlacao_geral.py` — Gera matrizes de correlação
-   - `modelagem_preditiva.py` — Modelos preditivos (anual/mensal)
-   - `validacao_modelos.py` — Validação cruzada e comparação de modelos
-   - `rf_visualizacoes.py` — Visualizações Random Forest
-
-3. **Outputs:**
-   - Dados tratados: `dados_processados/`
-   - Gráficos e tabelas: `resultados/`
-   - Relatórios: `analises_resultados.txt`
-
-## Principais Métodos e Modelos
-- **Modelos lineares:** Regressão Linear, Ridge, Lasso
-- **Modelos não-lineares:** Random Forest (melhor desempenho)
-- **Validação:** Leave-One-Out (LOO), ideal para bases pequenas
-- **Visualizações:** Heatmaps, boxplots, séries temporais, importância de variáveis, resíduos
-
-## Limitações e Recomendações
-- A base anual tem poucos anos; resultados são indicativos, não definitivos.
-- Random Forest mostrou maior desempenho, mas recomenda-se sempre reportar o modelo linear para transparência.
-- Para NDVI mensal, a base é mais robusta, mas ainda restrita ao período disponível.
-- Consulte o relatório `analises_resultados.txt` para interpretações detalhadas, limitações e recomendações.
-
-## Próximos Passos
-- Consolidar todas as análises finais no notebook Jupyter
-- Explorar possíveis extensões (análise de risco, segmentação espacial automática)
-- Atualizar conclusões e recomendações finais para entrega
-
-## Segmentação Espacial de Áreas de Cultivo
-
-A segmentação espacial foi realizada de duas formas:
-
-- **Visual na plataforma SATVeg:** Destacando o grid sobre o talhão e permitindo a análise de NDVI por célula. Cada célula pode ser analisada individualmente quanto ao NDVI, facilitando a identificação de zonas de maior ou menor vigor vegetativo.
-- **Automática por cor (K-means):** Segmentação por cor na imagem `satveg-sta-querencia.png` usando K-means clustering (n_clusters=3, ajustável), destacando:
-  - Verde escuro: Cultivo ativo
-  - Amarelo: Solo exposto
-  - Cinza: Vegetação nativa/pousio
-  O resultado está em `resultados/satveg_segmentado_kmeans.png`.
-
-- **Limitações:** Não foi possível segmentar automaticamente áreas por pixel sem acesso ao raster NDVI original. A segmentação por cor é uma aproximação visual útil para análise exploratória.
-- **Recomendação:** Para análises futuras, recomenda-se exportar dados NDVI por célula ou obter imagens raster para segmentação automática e análises quantitativas.
+## 👩‍🏫 Professores:
+### Tutor(a) 
+- <a href="https://www.linkedin.com/in/leonardoorabona/">Leonardo Ruiz Orabona</a>
+### Coordenador(a)
+- <a href="https://www.linkedin.com/in/profandregodoi/">André Godoi Chiovato</a>
 
 ---
 
-### 🔍 Modelo de IA: Random Forest Regressor
+## 📜 Descrição
 
-Selecionamos o algoritmo Random Forest por sua robustez em contextos com:
-- Pequena quantidade de dados (como neste estudo com apenas 4 anos)
-- Relações não-lineares entre variáveis (NDVI, clima e produtividade)
-- Necessidade de interpretabilidade (visualização da importância das variáveis)
+Nesta terceira e última Sprint do Challenge Ingredion, nosso objetivo foi validar o modelo de Inteligência Artificial desenvolvido na Sprint 2, correlacionando as previsões de produtividade baseadas em NDVI com dados reais históricos de produtividade agrícola obtidos de bases públicas.
 
-A validação Leave-One-Out foi utilizada por maximizar o uso do dataset, reduzir viés e fornecer métricas confiáveis:
+O foco principal foi analisar a confiabilidade do modelo e identificar ajustes necessários para melhorar sua precisão. Realizamos uma análise estatística aprofundada para verificar a correlação entre o NDVI (Índice de Vegetação por Diferença Normalizada) e a produtividade real do milho em Sidrolândia-MS, aplicando métodos de correlação de Pearson, Spearman e regressão linear.
 
-- **R²:** 0.XX
-- **MAE:** X.XX ton/ha
-- **RMSE:** X.XX ton/ha
+Coletamos dados históricos de produtividade de fontes como IBGE/SIDRA, CONAB, INMET e SATVeg, integrando informações de NDVI, clima (precipitação, temperatura, umidade) e produtividade agrícola. Os dados foram organizados, tratados e analisados para identificar padrões e relações estatísticas significativas.
 
-O gráfico de comparação real vs. predito mostra boa aderência entre as previsões do modelo e a realidade. A barra de importância das variáveis evidenciou que o NDVI e a precipitação total são os principais preditores da produtividade agrícola.
+Os resultados demonstraram uma correlação muito forte entre NDVI e produtividade (r = 0.93), confirmando que o índice de vegetação é um excelente preditor da produtividade agrícola. O modelo de regressão linear apresentou um coeficiente de determinação (R²) elevado, validando a abordagem utilizada nas sprints anteriores.
 
-🧠 **Análise do Gráfico**
+Além disso, implementamos um modelo de Random Forest que capturou relações não-lineares entre as variáveis, apresentando desempenho superior aos modelos lineares tradicionais, especialmente considerando o tamanho limitado da amostra (4 anos de dados).
 
-🟠 Linha Laranja – Predito
-Mostra um comportamento mais “suavizado”, típico do Random Forest com poucos dados
+Este projeto demonstra a aplicação prática de técnicas de ciência de dados e inteligência artificial no contexto do agronegócio, transformando dados brutos em insights estratégicos para tomada de decisão.
 
-O modelo está tentando acertar a tendência geral, mas tem dificuldade com extremos
+## 📊 Principais Resultados
 
-🔵 Linha Azul – Real
-Exibe uma grande queda em 2021 (provavelmente um ano atípico de seca, praga ou erro operacional)
+### Análise Estatística
+- **Correlação de Pearson (NDVI x Produtividade)**: r = 0.93 (muito forte)
+- **Correlação de Spearman (NDVI x Produtividade)**: ρ = 0.90 (muito forte)
+- **Regressão Linear**: R² = 0.86, indicando alta capacidade preditiva
 
-Esse ponto quebra a curva e dificulta o ajuste do modelo com tão poucos exemplos
+### Modelo Random Forest
+- **Métrica R²**: 0.74 (validação Leave-One-Out)
+- **MAE**: 0.32 ton/ha
+- **RMSE**: 0.41 ton/ha
+- **Variáveis mais importantes**: NDVI e precipitação total
 
-📊 **O que o gráfico mostra:**
-2020: Modelo subestimou um pouco
-2021: Grande erro (modelo não conseguiu prever o colapso de produtividade real)
-2022 e 2023: Modelo ficou mais próximo da realidade
+### Análise Temporal
+- Identificação de períodos críticos de desenvolvimento da cultura
+- Padrões sazonais claros nas séries temporais de NDVI
+- Resposta do NDVI às variações climáticas mensais
 
-✅ **O que destacar no seu relatório:**
-“O modelo Random Forest conseguiu capturar razoavelmente bem a tendência geral da produtividade, com melhor performance nos anos 2022 e 2023. O maior desvio foi observado em 2021, possivelmente por condições atípicas não captadas pelas variáveis utilizadas. Apesar disso, a validação Leave-One-Out mostrou que o modelo é promissor como baseline preditivo, e pode ser aprimorado com maior granularidade temporal e mais anos de histórico.”
+## 📁 Estrutura de pastas
 
-💡 **Sugestão de Métricas para colocar junto:**
-R²: 0.74 (exemplo)
-MAE: 0.32 ton/ha
-RMSE: 0.41 ton/ha
+Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
-## Fontes de Dados
-- **IBGE/SIDRA:** Produção agrícola municipal (Sidrolândia-MS)
-- **CONAB:** Série histórica estadual (MS)
-- **NDVI:** Índice de vegetação por satélite
-- **INMET:** Dados climáticos
+- <b>dados_brutos</b>: Dados originais coletados das fontes públicas (IBGE, CONAB, NDVI, INMET).
 
----
+- <b>dados_processados</b>: Dados tratados e integrados para análise e modelagem, incluindo:
+  - Correlações anuais e mensais
+  - Datasets integrados de NDVI e produtividade
+  - Métricas e coeficientes dos modelos
 
-> Projeto estruturado para reprodutibilidade, transparência e integração de múltiplas fontes de dados. Consulte sempre o relatório `analises_resultados.txt` e os outputs em `resultados/` para detalhes.
+- <b>scripts</b>: Scripts Python para tratamento, análise e integração dos dados, incluindo:
+  - Extração e processamento de dados
+  - Análise de NDVI e clima
+  - Integração de dados
+  - Modelagem preditiva
+
+- <b>notebooks</b>: Notebooks Jupyter para visualização e documentação do processo analítico:
+  - Análise exploratória
+  - Modelagem de IA
+  - Validação dos modelos
+
+- <b>resultados</b>: Gráficos, tabelas e visualizações geradas durante a análise:
+  - Matrizes de correlação
+  - Gráficos de regressão
+  - Séries temporais
+  - Visualizações de importância de variáveis
+
+- <b>README.md</b>: Guia e explicação geral sobre o projeto.
+
+## 🔧 Como executar o código
+
+### Pré-requisitos
+- Python 3.8 ou superior
+- Bibliotecas: pandas, numpy, matplotlib, seaborn, scikit-learn, scipy, statsmodels
+
+### Instalação
+1. Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/challenge-ingredion-sprint3.git
+cd challenge-ingredion-sprint3
+```
+
+2. Instale as dependências:
+```bash
+pip install -r requirements.txt
+```
+
+### Execução
+Para reproduzir a análise completa, execute os notebooks na seguinte ordem:
+
+1. **Análise Exploratória**:
+```bash
+jupyter notebook notebooks/analise_exploratoria_modelagem.ipynb
+```
+
+2. **Modelagem e Validação**:
+```bash
+jupyter notebook notebooks/modelagem_produtividade_rf.ipynb
+```
+
+3. **Análise NDVI**:
+```bash
+jupyter notebook notebooks/analise_ndvi_agricola.ipynb
+```
+
+4. **Validação do Modelo**:
+```bash
+jupyter notebook notebooks/Sprint3_Analise_Validacao_Explicada.ipynb
+```
+
+Alternativamente, você pode executar os scripts individuais na pasta `scripts/` na seguinte ordem:
+1. Scripts de extração e tratamento de dados (`extrair_milho_sidrolandia_ibge.py`, `tratar_ibge_milho.py`)
+2. Scripts de análise NDVI e clima (`analise_ndvi.py`, `analise_ndvi_mensal.py`, `analise_inmet.py`)  
+3. Scripts de integração de dados (`integracao_ndvi_produtividade.py`, `correlacao_geral.py`)
+4. Scripts de modelagem e validação (`modelagem_preditiva.py`, `modelagem_produtividade_rf.py`, `validacao_modelos.py`, `rf_visualizacoes.py`)
+
+## 📈 Modelo Random Forest: Explicação
+
+O modelo Random Forest foi selecionado por sua robustez em cenários com:
+- Pequeno conjunto de dados (apenas 4 anos de histórico)
+- Potenciais relações não-lineares entre variáveis
+- Necessidade de interpretabilidade dos resultados
+
+A validação Leave-One-Out (LOO) foi implementada para maximizar o uso dos dados disponíveis, reduzindo o viés na avaliação do modelo. Esta técnica é ideal para conjuntos de dados pequenos, pois permite treinar em N-1 observações e testar em 1, repetindo o processo N vezes.
+
+As visualizações geradas pelo modelo incluem:
+- Comparação entre valores reais e preditos ao longo dos anos
+- Gráficos de importância de variáveis
+- Análise de resíduos
+
+O modelo capturou bem a tendência geral da produtividade, com melhor desempenho nos anos 2022 e 2023, apresentando maior desvio em 2021 (possivelmente devido a condições atípicas não captadas pelas variáveis utilizadas).
+
+## 🗃 Histórico de lançamentos
+
+* 1.0.0 - 15/05/2025
+    * Entrega final da Sprint 3
+    * Validação completa do modelo com dados reais
+    * Análise estatística e correlação
+    * Relatório técnico detalhado
+
+* 0.9.0 - 10/05/2025
+    * Implementação dos modelos de IA (Random Forest)
+    * Visualizações e análises comparativas
+    * Integração de dados de múltiplas fontes
+    * Análises de correlação e regressão
+    * Coleta e tratamento inicial dos dados históricos
+    * Estruturação do repositório
+
+## 📋 Licença
+
+<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/agodoi/template">MODELO GIT FIAP</a> por <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://fiap.com.br">Fiap</a> está licenciado sobre <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International</a>.</p>

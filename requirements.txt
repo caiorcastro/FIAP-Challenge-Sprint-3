@@ -2,6 +2,13 @@ pandas
 numpy
 matplotlib
 seaborn
-scikit-learn
+scikit-learn>=1.0.0
 openpyxl
 jupyter
+scipy
+statsmodels
+plotly
+ipywidgets
+notebook
+pillow
+folium
