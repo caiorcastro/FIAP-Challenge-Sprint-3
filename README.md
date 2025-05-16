@@ -17,9 +17,6 @@
 - <a href="https://www.linkedin.com/in/digitalmanagerfelipesoares/">Felipe Soares Nascimento</a>
 - <a href="https://www.linkedin.com/in//">Wellington Nascimento de Brito</a>
 
-## Video
-
-https://youtu.be/8uVqWHpWkhI
 
 ## 👩‍🏫 Professores:
 ### Tutor(a) 
